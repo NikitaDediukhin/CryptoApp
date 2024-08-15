@@ -46,6 +46,10 @@ dependencies {
 
     // modules
     implementation(project(":data"))
+    implementation(project(":domain"))
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
