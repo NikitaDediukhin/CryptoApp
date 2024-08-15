@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">CryptoApp</string>
+
+    <string name="crypto_logo">crypto logo</string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="btc">BTC</string>
+    <string name="_28_600_74">$ 28,600.74</string>
+    <string name="_4_05">+ 4.05%</string>
+    <string name="crypto_list">Список криптовалют</string>
+    <string name="usd">USD</string>
+    <string name="rub">RUB</string>
+    <string name="error_text">Произошла какая-то ошибка :( \nПопробуйте снова?</string>
+    <string name="error_try">Попробовать</string>
+    <string name="error_logo">Error logo</string>
 </resources>
