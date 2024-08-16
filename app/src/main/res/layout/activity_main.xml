@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <android.widget.Toolbar
         android:id="@+id/toolbar"
@@ -105,7 +105,7 @@
     </android.widget.Toolbar>
 
     <FrameLayout
-        android:id="@+id/frame_layout"
+        android:id="@+id/fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
