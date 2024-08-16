@@ -21,6 +21,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "api_key", "\"${project.findProperty("COINGECKO_API_KEY")?.toString()}\"")
+        }
+        debug {
+            buildConfigField("String", "api_key", "\"${project.findProperty("COINGECKO_API_KEY")?.toString()}\"")
         }
     }
     compileOptions {
@@ -29,6 +33,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 
