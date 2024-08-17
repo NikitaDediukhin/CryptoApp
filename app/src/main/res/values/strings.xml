@@ -12,4 +12,9 @@
     <string name="error_text">Произошла какая-то ошибка :( \nПопробуйте снова?</string>
     <string name="error_try">Попробовать</string>
     <string name="error_logo">Error logo</string>
+    <string name="description">Описание</string>
+    <string name="bitcoin_description">
+        Bitcoin is a decentralized cryptocurrency originally described in a 2008 whitepaper by a person, or group of people, using the alias Satoshi Nakamoto. It was launched soon after, in January 2009.\n\nBitcoin is a peer-to-peer online currency, meaning that all transactions happen directly between equal, independent network participants, without the need for any intermediary to permit or facilitate them. Bitcoin was created, according to Nakamoto’s own words, to allow “online payments to be sent directly from one party to another without going through a financial institution.”\n\nBitcoin is a peer-to-peer online currency, meaning that all transactions happen directly between equal, independent network participants, without the need for any intermediary to permit or facilitate them. Bitcoin was created, according to Nakamoto’s own words, to allow “online payments to be sent directly from one party to another without going through a financial institution.”
+    </string>
+    <string name="categories">Smart Contract Platform, Ethereum Ecosystems</string>
 </resources>
