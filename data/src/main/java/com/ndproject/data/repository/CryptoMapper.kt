@@ -23,7 +23,7 @@ object CryptoMapper {
             id = cryptoDetailsResponse.id,
             symbol = cryptoDetailsResponse.symbol,
             name = cryptoDetailsResponse.name,
-            description = cryptoDetailsResponse.description.ru,
+            description = cryptoDetailsResponse.description.en,
             categories = cryptoDetailsResponse.categories,
             image = cryptoDetailsResponse.image.large
         )

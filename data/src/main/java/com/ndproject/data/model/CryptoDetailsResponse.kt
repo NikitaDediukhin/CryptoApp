@@ -18,8 +18,8 @@ data class CryptoDetailsResponse(
 )
 
 data class Description(
-    @SerializedName("ru")
-    val ru: String
+    @SerializedName("en")
+    val en: String
 )
 
 data class Image(
