@@ -5,13 +5,7 @@ import com.ndproject.domain.repository.CryptoRepository
 import com.ndproject.domain.utils.DataState
 
 class GetCryptoMarketUseCase(private val repository: CryptoRepository) {
-
     suspend fun execute(vsCurrency: String): DataState<List<CryptoModel>> {
-        return try {
-            val data = repository.getCryptoMarket(vsCurrency = vsCurrency)
-            DataState.Success(data)
-        } catch (e: Exception) {
-            DataState.Error(e.message.toString())
-        }
+        return repository.getCryptoMarket(vsCurrency = vsCurrency)
     }
 }
