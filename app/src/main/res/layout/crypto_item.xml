@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingVertical="8dp"
     android:paddingHorizontal="16dp"
-    android:background="@android:color/white"
-    android:gravity="center_vertical">
+    android:paddingVertical="8dp">
 
     <ImageView
         android:id="@+id/crypto_logo"
@@ -28,55 +28,55 @@
             android:id="@+id/crypto_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:lineHeight="18.75sp"
             android:text="@string/bitcoin"
-            android:textSize="16sp"
             android:textColor="@android:color/black"
             android:textFontWeight="500"
-            android:lineHeight="18.75sp"
-            android:fontFamily="@font/roboto_medium" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/crypto_ticker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btc"
-            android:textFontWeight="400"
-            android:textSize="14sp"
             android:layout_marginBottom="2dp"
+            android:fontFamily="@font/roboto_medium"
             android:lineHeight="16.41sp"
+            android:text="@string/btc"
             android:textColor="@android:color/darker_gray"
-            android:fontFamily="@font/roboto_medium" />
+            android:textFontWeight="400"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="end">
+        android:gravity="end"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/crypto_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/_28_600_74"
-            android:textSize="16sp"
-            android:textFontWeight="600"
+            android:fontFamily="@font/roboto_medium"
             android:lineHeight="18.75sp"
+            android:text="@string/_28_600_74"
             android:textColor="@android:color/black"
-            android:fontFamily="@font/roboto_medium" />
+            android:textFontWeight="600"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/crypto_change"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/_4_05"
-            android:textSize="14sp"
             android:layout_marginBottom="1dp"
-            android:textFontWeight="400"
+            android:fontFamily="@font/roboto_medium"
             android:lineHeight="16.41sp"
+            android:text="@string/_4_05"
             android:textColor="@color/teal"
-            android:fontFamily="@font/roboto_medium" />
+            android:textFontWeight="400"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
