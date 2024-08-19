@@ -3,21 +3,21 @@ package com.ndproject.cryptoapp.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.chip.Chip
 import com.ndproject.cryptoapp.R
 import com.ndproject.cryptoapp.databinding.ActivityMainBinding
+import com.ndproject.cryptoapp.fragment.CryptoListFragment
+import com.ndproject.cryptoapp.fragment.OnCurrencyChangedListener
 import com.ndproject.cryptoapp.viewmodel.CryptoViewModel
 import com.ndproject.cryptoapp.viewmodel.CryptoViewModelFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnCurrencyChangedListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModelFactory: CryptoViewModelFactory
@@ -107,13 +107,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun updateChipState(activeChip: Chip, inactiveChip: Chip) {
         activeChip.setTextColor(ContextCompat.getColor(this, R.color.brightOrange))
         activeChip.chipBackgroundColor = ContextCompat.getColorStateList(this, R.color.lightBeige)
 
         inactiveChip.setTextColor(ContextCompat.getColor(this, R.color.blackTransparent87))
         inactiveChip.chipBackgroundColor = ContextCompat.getColorStateList(this, R.color.grey)
+    }
+
+    override fun onCurrencyChanged(currency: String) {
+        val fragment = supportFragmentManager.findFragmentById(R.id.navHostFragment)?.childFragmentManager?.fragments?.find { it is CryptoListFragment }
+        if (fragment is CryptoListFragment) {
+            fragment.viewModel.fetchCryptoMarket(currency)
+        }
     }
 }

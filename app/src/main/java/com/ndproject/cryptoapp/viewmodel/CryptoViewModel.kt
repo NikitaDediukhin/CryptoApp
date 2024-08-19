@@ -28,6 +28,8 @@ class CryptoViewModel(
     private val _currentCurrency = MutableLiveData("usd")
     val currentCurrency: LiveData<String> get() = _currentCurrency
 
+    var isDataLoaded = false
+
     fun fetchCryptoMarket(vsCurrency: String) {
         viewModelScope.launch {
             _cryptoListLiveData.value = DataState.Loading

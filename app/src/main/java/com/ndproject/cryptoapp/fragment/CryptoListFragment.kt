@@ -1,5 +1,6 @@
 package com.ndproject.cryptoapp.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,20 +10,25 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ndproject.cryptoapp.R
 import com.ndproject.cryptoapp.activity.MainActivity
 import com.ndproject.cryptoapp.databinding.FragmentCryptoListBinding
 import com.ndproject.cryptoapp.fragment.adapter.CryptoAdapter
 import com.ndproject.cryptoapp.viewmodel.CryptoViewModel
 import com.ndproject.domain.model.CryptoModel
 import com.ndproject.domain.utils.DataState
-import java.io.Serializable
 
+/**
+ * Fragment для отображения списка криптовалют.
+ * Обрабатывает загрузку данных, отображение ошибок и обновление UI.
+ */
 class CryptoListFragment : Fragment() {
 
     private lateinit var binding: FragmentCryptoListBinding
-    val viewModel: CryptoViewModel by activityViewModels()
     private lateinit var adapter: CryptoAdapter
+    private var currencyChangedListener: OnCurrencyChangedListener? = null
+    private var hasLoadedData = false
+
+    val viewModel: CryptoViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,11 +41,33 @@ class CryptoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Настройка RecyclerView
         setupRecyclerView()
 
+        // Установка наблюдателей для LiveData
         setupObservers()
 
-        viewModel.currentCurrency.value?.let { viewModel.fetchCryptoMarket(it) }
+        // Начальная загрузка данных о криптовалютах, если это не было сделано ранее
+        if (!viewModel.isDataLoaded) {
+            viewModel.currentCurrency.value?.let {
+                viewModel.fetchCryptoMarket(it)
+            }
+            viewModel.isDataLoaded = true
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnCurrencyChangedListener) {
+            currencyChangedListener = context
+        } else {
+            throw RuntimeException("$context must implement OnCurrencyChangedListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        currencyChangedListener = null
     }
 
     private fun setupRecyclerView() {
@@ -69,9 +97,6 @@ class CryptoListFragment : Fragment() {
                     showError()
                 }
             }
-        }
-        viewModel.currentCurrency.observe(viewLifecycleOwner) { currency ->
-            viewModel.fetchCryptoMarket(currency)
         }
     }
 
