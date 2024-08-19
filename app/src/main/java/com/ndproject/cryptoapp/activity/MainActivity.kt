@@ -43,15 +43,6 @@ class MainActivity : AppCompatActivity() {
         updateCurrencyChips()
     }
 
-    override fun onBackPressed() {
-        val navController = findNavController(R.id.navHostFragment)
-        if (navController.currentBackStackEntry != null) {
-            navController.popBackStack()
-        } else {
-            super.onBackPressed()
-        }
-    }
-
     fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
@@ -111,8 +102,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Обработка нажатия кнопки назад
-        binding.toolbar.findViewById<ImageButton>(R.id.ivBackButton).setOnClickListener {
-            onBackPressed()
+        binding.ivBackButton.setOnClickListener {
+            navController.navigateUp()
         }
     }
 
