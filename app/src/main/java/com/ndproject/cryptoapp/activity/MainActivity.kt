@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity(), OnCurrencyChangedListener {
         }
     }
 
+    // Настройка чипсов для выбора валюты
     private fun setupToolbar() {
-        // Настройка чипсов для выбора валюты
         binding.chipUsd.setOnClickListener {
             viewModel.changeCurrency("usd")
             updateChipState(

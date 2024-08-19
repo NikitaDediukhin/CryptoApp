@@ -1,7 +1,5 @@
 package com.ndproject.data.repository
 
-import android.util.Log
-import com.google.gson.internal.GsonBuildConfig
 import com.ndproject.data.BuildConfig
 import com.ndproject.data.service.ApiService
 import com.ndproject.domain.model.CryptoDetailsModel
@@ -9,6 +7,13 @@ import com.ndproject.domain.model.CryptoModel
 import com.ndproject.domain.repository.CryptoRepository
 import com.ndproject.domain.utils.DataState
 
+/**
+ * Реализация репозитория для получения данных о криптовалютах из удаленного источника.
+ * Использует API-сервис для выполнения сетевых запросов и Mapper для преобразования данных.
+ *
+ * @param cryptoMapper Mapper для преобразования данных из API в модели приложения.
+ * @param apiService Сервис для выполнения сетевых запросов к API криптовалют.
+ */
 class CryptoRepositoryImpl(
     private val cryptoMapper: CryptoMapper,
     private val apiService: ApiService

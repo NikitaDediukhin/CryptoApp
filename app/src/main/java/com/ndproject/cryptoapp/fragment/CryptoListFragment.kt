@@ -41,23 +41,24 @@ class CryptoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Настройка RecyclerView
         setupRecyclerView()
 
-        // Установка наблюдателей для LiveData
         setupObservers()
 
         // Начальная загрузка данных о криптовалютах, если это не было сделано ранее
-        if (!viewModel.isDataLoaded) {
+        if (!viewModel.isListDataLoaded) {
             viewModel.currentCurrency.value?.let {
                 viewModel.fetchCryptoMarket(it)
             }
-            viewModel.isDataLoaded = true
+            viewModel.isListDataLoaded = true
         }
+        // Сброс флага загрузки данных о деталях криптовалют
+        viewModel.isDetailsDataLoaded = false
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        // Проверка, что активити реализует интерфейс OnCurrencyChangedListener
         if (context is OnCurrencyChangedListener) {
             currencyChangedListener = context
         } else {
@@ -70,6 +71,7 @@ class CryptoListFragment : Fragment() {
         currencyChangedListener = null
     }
 
+    // Инициализация адаптера для RecyclerView
     private fun setupRecyclerView() {
         adapter = CryptoAdapter { cryptoId, name ->
             navigateToDetails(cryptoId, name)
@@ -100,10 +102,12 @@ class CryptoListFragment : Fragment() {
         }
     }
 
+    // Передача состояния загрузки в активити
     private fun showLoading(isLoading: Boolean) {
         (requireActivity() as MainActivity).showLoading(isLoading)
     }
 
+    // Отображение загруженных данных
     private fun showCryptoList(data: List<CryptoModel>) {
         showLoading(false)
         binding.marketErrorLayout.visibility = View.GONE
@@ -114,6 +118,7 @@ class CryptoListFragment : Fragment() {
         } ?: "$")
     }
 
+    // Отображение сообщения об ошибке и предоставление возможности повторной загрузки
     private fun showError() {
         showLoading(false)
         binding.recyclerView.visibility = View.GONE
@@ -125,6 +130,7 @@ class CryptoListFragment : Fragment() {
     }
 
     private fun navigateToDetails(cryptoId: String, cryptoTitle: String) {
+        // Загрузка данных о криптавалюте по id
         val action = CryptoListFragmentDirections.actionCryptoListFragmentToCryptoDetailsFragment(cryptoId, cryptoTitle)
         findNavController().navigate(action)
     }

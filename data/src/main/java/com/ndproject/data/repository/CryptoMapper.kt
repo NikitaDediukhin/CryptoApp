@@ -5,6 +5,10 @@ import com.ndproject.data.model.CryptoResponse
 import com.ndproject.domain.model.CryptoDetailsModel
 import com.ndproject.domain.model.CryptoModel
 
+/**
+ * Маппер для преобразования ответов API в модели приложения.
+ * Содержит методы для преобразования данных о криптовалютах и их подробностях в модели, используемые в приложении.
+ */
 object CryptoMapper {
 
     fun toCryptoModel(cryptoResponse: CryptoResponse): CryptoModel {
