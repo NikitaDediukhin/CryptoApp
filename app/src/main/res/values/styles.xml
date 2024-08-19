@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="H6_Roboto_Medium" parent="TextAppearance.AppCompat">
+        <item name="android:lineHeight">23.44dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/blackTransparent87</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:lineHeight">20sp</item>
+        <item name="chipMinTouchTargetSize">0dp</item>
+        <item name="chipSurfaceColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Crypto Item -->
+    <style name="CryptoNameStyle" parent="TextAppearance.AppCompat">
+        <item name="android:lineHeight">18.75sp</item>
+        <item name="android:textColor">@color/darkGrey</item>
+        <item name="android:textFontWeight">500</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="CryptoTickerStyle" parent="TextAppearance.AppCompat">
+        <item name="android:lineHeight">16.41sp</item>
+        <item name="android:textColor">@color/mutedGrey</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="CryptoPriceStyle" parent="TextAppearance.AppCompat">
+        <item name="android:lineHeight">18.75sp</item>
+        <item name="android:textColor">@color/darkGrey</item>
+        <item name="android:textFontWeight">600</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">textEnd</item>
+    </style>
+
+    <style name="CryptoChangeStyle" parent="TextAppearance.AppCompat">
+        <item name="android:lineHeight">16.41sp</item>
+        <item name="android:textColor">@color/teal</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">textEnd</item>
+    </style>
+
+    <style name="CryptoDetailsInfo" parent="TextAppearance.AppCompat">
+        <item name="android:lineHeight">18.75sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+</resources>

@@ -4,7 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
-        <item name="android:statusBarColor">@color/grey</item>
+        <item name="android:statusBarColor">@color/lightgrey</item>
     </style>
 
     <style name="Theme.CryptoApp" parent="Base.Theme.CryptoApp" />

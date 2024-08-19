@@ -9,15 +9,11 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.chip.Chip
 import com.ndproject.cryptoapp.R
 import com.ndproject.cryptoapp.databinding.ActivityMainBinding
-import com.ndproject.cryptoapp.fragment.CryptoListFragment
-import com.ndproject.cryptoapp.fragment.ErrorFragment
 import com.ndproject.cryptoapp.viewmodel.CryptoViewModel
 import com.ndproject.cryptoapp.viewmodel.CryptoViewModelFactory
 
@@ -34,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Настройка NavController
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
 
         // Настойка ViewModel
@@ -48,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(R.id.navHostFragment)
         if (navController.currentBackStackEntry != null) {
             navController.popBackStack()
         } else {
@@ -99,23 +95,23 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.cryptoListFragment -> {
                     // Настройка Toolbar для списка
-                    binding.toolbar.findViewById<LinearLayout>(R.id.main_tools).visibility = View.VISIBLE
-                    binding.toolbar.findViewById<LinearLayout>(R.id.toolbar_description).visibility = View.GONE
+                    binding.toolbar.findViewById<LinearLayout>(R.id.mainTools).visibility = View.VISIBLE
+                    binding.toolbar.findViewById<LinearLayout>(R.id.toolbarDescription).visibility = View.GONE
                 }
                 R.id.cryptoDetailsFragment -> {
                     // Настройка Toolbar для описания
-                    binding.toolbar.findViewById<LinearLayout>(R.id.main_tools).visibility = View.GONE
-                    binding.toolbar.findViewById<LinearLayout>(R.id.toolbar_description).visibility = View.VISIBLE
+                    binding.toolbar.findViewById<LinearLayout>(R.id.mainTools).visibility = View.GONE
+                    binding.toolbar.findViewById<LinearLayout>(R.id.toolbarDescription).visibility = View.VISIBLE
 
                     // Установка текста в TextView с названием криптовалюты
                     val cryptoName = arguments?.getString("cryptoName") ?: ""
-                    binding.toolbar.findViewById<TextView>(R.id.toolbar_description_title).text = cryptoName
+                    binding.toolbar.findViewById<TextView>(R.id.tvToolbarDescriptionTitle).text = cryptoName
                 }
             }
         }
 
         // Обработка нажатия кнопки назад
-        binding.toolbar.findViewById<ImageButton>(R.id.desc_tools).setOnClickListener {
+        binding.toolbar.findViewById<ImageButton>(R.id.ivBackButton).setOnClickListener {
             onBackPressed()
         }
     }
@@ -126,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         activeChip.setTextColor(ContextCompat.getColor(this, R.color.brightOrange))
         activeChip.chipBackgroundColor = ContextCompat.getColorStateList(this, R.color.lightBeige)
 
-        inactiveChip.setTextColor(ContextCompat.getColor(this, R.color.blackTransparent))
-        inactiveChip.chipBackgroundColor = ContextCompat.getColorStateList(this, R.color.lightGrey)
+        inactiveChip.setTextColor(ContextCompat.getColor(this, R.color.blackTransparent87))
+        inactiveChip.chipBackgroundColor = ContextCompat.getColorStateList(this, R.color.grey)
     }
 }

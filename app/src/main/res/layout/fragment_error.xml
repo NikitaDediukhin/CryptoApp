@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/error_layout"
+        android:id="@+id/errorLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -24,8 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/roboto_medium"
+            android:layout_marginTop="13dp"
             android:text="@string/error_text"
             android:textAlignment="center"
             android:textColor="@android:color/black"
@@ -33,18 +32,18 @@
             android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/retry_button"
+            android:id="@+id/btnRetry"
             android:layout_width="175dp"
             android:layout_height="36dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/retry_button_shape"
-            android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:lineHeight="16dp"
             android:text="@string/error_try"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textFontWeight="500"
+            android:letterSpacing="0.05"
             android:textSize="14sp" />
 
     </LinearLayout>

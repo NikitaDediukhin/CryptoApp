@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="grey">#E8E8E8</color>
-    <color name="blackTransparent">#DE000000</color>
-    <color name="lightGrey">#DFDFDF</color>
+    <color name="сloudWhite">#FAFAFA</color>
+    <color name="lightgrey">#E8E8E8</color>
+    <color name="grey">#DFDFDF</color>
+    <color name="mutedGrey">#9B9B9B</color>
+    <color name="darkGrey">#525252</color>
+    <color name="black">#000000</color>
+    <color name="blackTransparent87">#DE000000</color>
+    <color name="blackTransparent12">#1F000000</color>
     <color name="lightBeige">#FAEEDB</color>
     <color name="brightOrange">#FFAD25</color>
     <color name="orange">#FF9F00</color>
+    <color name="orangeTransparent">#1FFF9F00</color>
     <color name="teal">#2A9D8F</color>
     <color name="red">#EB5757</color>
 </resources>

@@ -42,11 +42,11 @@ class CryptoAdapter(
     }
 
     class CryptoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val ivLogo: ImageView = itemView.findViewById(R.id.crypto_logo)
-        private val tvTitle: TextView = itemView.findViewById(R.id.crypto_name)
-        private val tvTicker: TextView = itemView.findViewById(R.id.crypto_ticker)
-        private val tvPrice: TextView = itemView.findViewById(R.id.crypto_price)
-        private val tvPriceChange: TextView = itemView.findViewById(R.id.crypto_change)
+        private val ivLogo: ImageView = itemView.findViewById(R.id.ivCryptoLogo)
+        private val tvTitle: TextView = itemView.findViewById(R.id.tvCryptoName)
+        private val tvTicker: TextView = itemView.findViewById(R.id.tvCryptoTicker)
+        private val tvPrice: TextView = itemView.findViewById(R.id.tvCryptoPrice)
+        private val tvPriceChange: TextView = itemView.findViewById(R.id.tvCryptoChange)
 
         fun onBind(
             cryptoItem: CryptoModel,
