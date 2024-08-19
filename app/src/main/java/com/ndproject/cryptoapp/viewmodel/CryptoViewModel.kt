@@ -20,7 +20,8 @@ import kotlinx.coroutines.launch
  */
 class CryptoViewModel(
     private val getCryptoMarketUseCase: GetCryptoMarketUseCase,
-    private val getCryptoDetailsUseCase: GetCryptoDetailsUseCase
+    private val getCryptoDetailsUseCase: GetCryptoDetailsUseCase,
+    private val changeCurrencyUseCase: ChangeCurrencyUseCase
 ) : ViewModel() {
 
     // LiveData для списка криптовалют
