@@ -35,7 +35,6 @@ class CryptoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Настройка RecyclerView
         setupRecyclerView()
 
         setupObservers()
@@ -55,21 +54,18 @@ class CryptoListFragment : Fragment() {
         viewModel.cryptoListLiveData.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is DataState.Loading -> {
-                    (requireActivity() as MainActivity).showLoading(true)
+                    showLoading(true)
                     binding.recyclerView.visibility = View.GONE
+                    binding.marketErrorLayout.visibility = View.GONE
                 }
                 is DataState.Success -> {
-                    (requireActivity() as MainActivity).showLoading(false)
                     if (state.data.isEmpty()) {
                         showError()
                     } else {
-                        binding.recyclerView.visibility = View.VISIBLE
                         showCryptoList(state.data)
                     }
                 }
                 is DataState.Error -> {
-                    (requireActivity() as MainActivity).showLoading(false)
-                    Log.e("crypto", state.message)
                     showError()
                 }
             }
@@ -79,19 +75,28 @@ class CryptoListFragment : Fragment() {
         }
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        (requireActivity() as MainActivity).showLoading(isLoading)
+    }
+
     private fun showCryptoList(data: List<CryptoModel>) {
-        (requireActivity() as MainActivity).showLoading(false)
+        showLoading(false)
+        binding.marketErrorLayout.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
+
         adapter.setListData(data, viewModel.currentCurrency.value?.let {
             if (it == "usd") "$" else "₽"
         } ?: "$")
     }
 
     private fun showError() {
-        val bundle = Bundle().apply {
-            putString("actionType", "fetchCryptoMarket")
+        showLoading(false)
+        binding.recyclerView.visibility = View.GONE
+        binding.marketErrorLayout.visibility = View.VISIBLE
+        binding.btnMarketRetry.setOnClickListener {
+            Log.e("crypto", "List trying")
+            viewModel.currentCurrency.value?.let { viewModel.fetchCryptoMarket(it) }
         }
-        findNavController().navigate(R.id.errorFragment, bundle)
     }
 
     private fun navigateToDetails(cryptoId: String, cryptoTitle: String) {

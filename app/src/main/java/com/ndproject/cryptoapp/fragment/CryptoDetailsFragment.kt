@@ -46,16 +46,15 @@ class CryptoDetailsFragment : Fragment() {
             when (state) {
                 is DataState.Loading -> {
                     showLoading(true)
+                    Log.e("crypto", "Details loading")
                     binding.detailsContainer.visibility = View.GONE
+                    binding.detailsErrorLayout.visibility = View.GONE
                 }
                 is DataState.Success -> {
-                    showLoading(false)
-                    binding.detailsContainer.visibility = View.VISIBLE
+                    Log.e("crypto", "Details result")
                     showDetails(state.data)
                 }
                 is DataState.Error -> {
-                    showLoading(false)
-                    binding.detailsContainer.visibility = View.GONE
                     showError()
                 }
             }
@@ -64,6 +63,10 @@ class CryptoDetailsFragment : Fragment() {
     }
 
     private fun showDetails(data: CryptoDetailsModel){
+        showLoading(false)
+        binding.detailsErrorLayout.visibility = View.GONE
+        binding.detailsContainer.visibility = View.VISIBLE
+
         context?.let {
             Glide.with(it)
                 .load(data.image)
@@ -78,11 +81,14 @@ class CryptoDetailsFragment : Fragment() {
     }
 
     private fun showError() {
-        val bundle = Bundle().apply {
-            putString("actionType", "fetchCryptoDetails")
-            putString("cryptoId", args.cryptoId)
+        Log.e("crypto", "Details shows error")
+        showLoading(false)
+        binding.detailsContainer.visibility = View.GONE
+        binding.detailsErrorLayout.visibility = View.VISIBLE
+        binding.btnDetailsRetry.setOnClickListener {
+            Log.e("crypto", "Details trying")
+            viewModel.fetchCryptoDetails(args.cryptoId)
         }
-        findNavController().navigate(R.id.errorFragment, bundle)
     }
 
 }

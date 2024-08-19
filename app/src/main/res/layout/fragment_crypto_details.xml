@@ -1,86 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:id="@+id/detailsContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/lineStart"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="34dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/lineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <ImageView
+                android:id="@+id/ivCryptoDetailsLogo"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="10.4dp"
+                android:contentDescription="@string/crypto_details_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_crypto" />
+
+            <TextView
+                android:id="@+id/tvDetailsTitle"
+                style="@style/H6_Roboto_Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/description"
+                app:layout_constraintStart_toStartOf="@id/lineStart"
+                app:layout_constraintTop_toBottomOf="@id/ivCryptoDetailsLogo" />
+
+            <TextView
+                android:id="@+id/tvDetails"
+                style="@style/CryptoDetailsInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/lineEnd"
+                app:layout_constraintStart_toStartOf="@id/lineStart"
+                app:layout_constraintTop_toBottomOf="@id/tvDetailsTitle"
+                tools:text="@string/bitcoin_description" />
+
+            <TextView
+                android:id="@+id/tvCategoriesTitle"
+                style="@style/H6_Roboto_Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:lineHeight="23.44dp"
+                android:text="@string/categories_title"
+                android:textFontWeight="500"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/lineStart"
+                app:layout_constraintTop_toBottomOf="@id/tvDetails" />
+
+            <TextView
+                android:id="@+id/tvCategories"
+                style="@style/CryptoDetailsInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@id/lineEnd"
+                app:layout_constraintStart_toStartOf="@id/lineStart"
+                app:layout_constraintTop_toBottomOf="@id/tvCategoriesTitle"
+                tools:text="@string/categories" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/lineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/detailsErrorLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/ivCryptoDetailsLogo"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginTop="10.4dp"
-            android:contentDescription="@string/crypto_details_icon"
-            tools:src="@drawable/ic_crypto"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="@string/error_logo"
+            android:src="@drawable/ic_crypto" />
 
         <TextView
-            android:id="@+id/tvDetailsTitle"
-            style="@style/H6_Roboto_Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/description"
-            app:layout_constraintStart_toStartOf="@id/lineStart"
-            app:layout_constraintTop_toBottomOf="@id/ivCryptoDetailsLogo" />
+            android:layout_marginTop="13dp"
+            android:text="@string/error_text"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textFontWeight="400"
+            android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tvDetails"
-            style="@style/CryptoDetailsInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@id/lineEnd"
-            app:layout_constraintStart_toStartOf="@id/lineStart"
-            app:layout_constraintTop_toBottomOf="@id/tvDetailsTitle"
-            tools:text="@string/bitcoin_description" />
-
-        <TextView
-            android:id="@+id/tvCategoriesTitle"
-            style="@style/H6_Roboto_Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:lineHeight="23.44dp"
-            android:text="@string/categories_title"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDetailsRetry"
+            android:layout_width="175dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/retry_button_shape"
+            android:gravity="center"
+            android:lineHeight="16dp"
+            android:text="@string/error_try"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:textFontWeight="500"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/lineStart"
-            app:layout_constraintTop_toBottomOf="@id/tvDetails" />
+            android:letterSpacing="0.05"
+            android:textSize="14sp" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvCategories"
-            style="@style/CryptoDetailsInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@id/lineEnd"
-            app:layout_constraintStart_toStartOf="@id/lineStart"
-            app:layout_constraintTop_toBottomOf="@id/tvCategoriesTitle"
-            tools:text="@string/categories" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/lineEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="16dp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
