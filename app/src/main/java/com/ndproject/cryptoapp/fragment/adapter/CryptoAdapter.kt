@@ -15,10 +15,13 @@ import java.text.NumberFormat
 import java.util.Locale
 
 class CryptoAdapter(
+    // Обработчик кликов по элементам списка
     private val onClickItem: (id: String, name: String) -> Unit
 ) : RecyclerView.Adapter<CryptoAdapter.CryptoViewHolder>() {
 
+    // Список криптовалют для отображения
     private var cryptoList: List<CryptoModel> = listOf()
+    // Текущий символ валюты для отображения цен
     private var currencySymbol: String = "$"
 
     @SuppressLint("NotifyDataSetChanged")
@@ -48,40 +51,42 @@ class CryptoAdapter(
         private val tvPrice: TextView = itemView.findViewById(R.id.tvCryptoPrice)
         private val tvPriceChange: TextView = itemView.findViewById(R.id.tvCryptoChange)
 
+        /**
+         * @param cryptoItem Объект криптовалюты для отображения
+         * @param currencySymbol Символ валюты для отображения цены
+         * @param onClickItem Обработчик кликов по элементам списка
+         */
         fun onBind(
             cryptoItem: CryptoModel,
             currencySymbol: String,
             onClickItem: (id: String, name: String) -> Unit
         ) {
+            // Загрузка изображения с помощью Glide
             Glide.with(itemView.context)
                 .load(cryptoItem.image)
                 .into(ivLogo)
 
+            // Установка названия и тикера криптовалюты
             tvTitle.text = cryptoItem.name
             tvTicker.text = cryptoItem.symbol.uppercase()
 
-            val numberFormat = NumberFormat.getNumberInstance(Locale.US)
-            numberFormat.maximumFractionDigits = 2
-            numberFormat.minimumFractionDigits = 2
-
+            // Форматирование и установка цены
+            val numberFormat = NumberFormat.getNumberInstance(Locale.US).apply {
+                maximumFractionDigits = 2
+                minimumFractionDigits = 2
+            }
             val formattedPrice = numberFormat.format(cryptoItem.currentPrice)
-
             tvPrice.text = String.format("%s%s", currencySymbol, formattedPrice)
 
-            val priceChangeText = if (cryptoItem.priceChange >= 0) {
-                "+${String.format(Locale.US, "%.2f%%", cryptoItem.priceChange)}"
-            } else {
-                String.format(Locale.US, "%.2f%%", cryptoItem.priceChange)
-            }
+            // Форматирование изменения цены
+            val priceChangeText = String.format(Locale.US, "%+.2f%%", cryptoItem.priceChange)
             tvPriceChange.text = priceChangeText
 
-            val color = if (cryptoItem.priceChange >= 0) {
-                R.color.teal
-            } else {
-                R.color.red
-            }
+            // Установка цвета изменения цены
+            val color = if (cryptoItem.priceChange >= 0) R.color.teal else R.color.red
             tvPriceChange.setTextColor(ContextCompat.getColor(itemView.context, color))
 
+            // Обработчик клика по элементу списка
             itemView.setOnClickListener {
                 onClickItem(cryptoItem.id, cryptoItem.name)
             }
