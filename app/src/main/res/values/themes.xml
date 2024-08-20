@@ -5,6 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
         <item name="android:statusBarColor">@color/lightgrey</item>
+        <item name="android:colorEdgeEffect">@color/white</item>
     </style>
 
     <style name="Theme.CryptoApp" parent="Base.Theme.CryptoApp" />
