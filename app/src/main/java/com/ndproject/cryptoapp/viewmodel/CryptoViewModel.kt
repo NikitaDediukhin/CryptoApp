@@ -36,6 +36,9 @@ class CryptoViewModel(
     private val _currentCurrency = MutableLiveData("usd")
     val currentCurrency: LiveData<String> get() = _currentCurrency
 
+    private val _isRefreshing = MutableLiveData(false)
+    val isRefreshing: LiveData<Boolean> get() = _isRefreshing
+
     // Флаги для отслеживания состояния загрузки данных
     var isListDataLoaded = false
     var isDetailsDataLoaded = false
@@ -46,11 +49,22 @@ class CryptoViewModel(
      *
      * @param vsCurrency Валюта, по отношению к которой нужно получить данные о криптовалютах.
      */
-    fun fetchCryptoMarket(vsCurrency: String) {
+
+    fun fetchCryptoMarket(vsCurrency: String, isRefresh: Boolean = false) {
         viewModelScope.launch {
+            if (isRefresh) _isRefreshing.value = true
+
             _cryptoListLiveData.value = DataState.Loading
-            delay(1000)
-            _cryptoListLiveData.value = getCryptoMarketUseCase.execute(vsCurrency)
+            try {
+                delay(1000)
+                _cryptoListLiveData.value = getCryptoMarketUseCase.execute(vsCurrency)
+            } catch (e: Exception) {
+                _cryptoListLiveData.value = DataState.Error(e.message ?: "An error occurred")
+            } finally {
+                if (isRefresh) {
+                    _isRefreshing.value = false
+                }
+            }
         }
     }
 
