@@ -20,4 +20,5 @@
     <string name="button_back">button back</string>
     <string name="categories_title">Категории</string>
     <string name="crypto_details_icon">crypto details icon</string>
+    <string name="error_text_snackbar">Произошла ошибка при загрузке</string>
 </resources>
