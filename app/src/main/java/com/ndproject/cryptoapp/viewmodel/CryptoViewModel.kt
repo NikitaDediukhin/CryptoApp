@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ndproject.cryptoapp.activity.DependencyProvider.changeCurrencyUseCase
 import com.ndproject.domain.model.CryptoDetailsModel
 import com.ndproject.domain.model.CryptoModel
 import com.ndproject.domain.usecase.ChangeCurrencyUseCase
@@ -33,8 +32,12 @@ class CryptoViewModel(
     val cryptoDetailsLiveData: LiveData<DataState<CryptoDetailsModel>> get() = _cryptoDetailsLiveData
 
     // LiveData для текущей валюты
-    private val _currentCurrency = MutableLiveData("usd")
-    val currentCurrency: LiveData<String> get() = _currentCurrency
+    private val _currentCurrencyLiveData = MutableLiveData("usd")
+    val currentCurrencyLiveData: LiveData<String> get() = _currentCurrencyLiveData
+
+    // Cписок доступных валют
+    private val _availableCurrenciesLiveData = MutableLiveData(listOf("usd", "rub"))
+    val availableCurrenciesLiveData: LiveData<List<String>> get() = _availableCurrenciesLiveData
 
     // Флаги для отслеживания состояния загрузки данных
     var isListDataLoaded = false
@@ -55,7 +58,7 @@ class CryptoViewModel(
     }
 
     fun changeCurrency(vsCurrency: String) {
-        _currentCurrency.value = vsCurrency
+        _currentCurrencyLiveData.value = vsCurrency
         viewModelScope.launch {
             _cryptoListLiveData.value = DataState.Loading
             delay(1000)
