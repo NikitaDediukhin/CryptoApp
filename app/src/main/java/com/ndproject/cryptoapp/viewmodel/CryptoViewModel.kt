@@ -33,9 +33,14 @@ class CryptoViewModel(
     val cryptoDetailsLiveData: LiveData<DataState<CryptoDetailsModel>> get() = _cryptoDetailsLiveData
 
     // LiveData для текущей валюты
-    private val _currentCurrency = MutableLiveData("usd")
-    val currentCurrency: LiveData<String> get() = _currentCurrency
+    private val _currentCurrencyLiveData = MutableLiveData("usd")
+    val currentCurrencyLiveData: LiveData<String> get() = _currentCurrencyLiveData
 
+    // Cписок доступных валют
+    private val _availableCurrenciesLiveData = MutableLiveData(listOf("usd", "rub"))
+    val availableCurrenciesLiveData: LiveData<List<String>> get() = _availableCurrenciesLiveData
+
+    // Флаг для отслеживания загрузки через Refresh
     private val _isRefreshing = MutableLiveData(false)
     val isRefreshing: LiveData<Boolean> get() = _isRefreshing
 
@@ -69,7 +74,7 @@ class CryptoViewModel(
     }
 
     fun changeCurrency(vsCurrency: String) {
-        _currentCurrency.value = vsCurrency
+        _currentCurrencyLiveData.value = vsCurrency
         viewModelScope.launch {
             _cryptoListLiveData.value = DataState.Loading
             delay(1000)

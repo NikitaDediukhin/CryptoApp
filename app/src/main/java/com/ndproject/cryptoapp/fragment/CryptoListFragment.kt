@@ -30,7 +30,6 @@ class CryptoListFragment : Fragment() {
 
     private lateinit var binding: FragmentCryptoListBinding
     private lateinit var adapter: CryptoAdapter
-    private var currencyChangedListener: OnCurrencyChangedListener? = null
 
     val viewModel: CryptoViewModel by activityViewModels()
 
@@ -54,7 +53,7 @@ class CryptoListFragment : Fragment() {
         // Начальная загрузка данных о криптовалютах,
         // если это не было сделано ранее
         if (!viewModel.isListDataLoaded) {
-            viewModel.currentCurrency.value?.let {
+            viewModel.currentCurrencyLiveData.value?.let {
                 viewModel.fetchCryptoMarket(it)
             }
             viewModel.isListDataLoaded = true
@@ -63,25 +62,10 @@ class CryptoListFragment : Fragment() {
         viewModel.isDetailsDataLoaded = false
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        // Проверка, что активити реализует интерфейс OnCurrencyChangedListener
-        if (context is OnCurrencyChangedListener) {
-            currencyChangedListener = context
-        } else {
-            throw RuntimeException("$context must implement OnCurrencyChangedListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        currencyChangedListener = null
-    }
-
     // Настройка Swipe-to-Refresh
     private fun setupSwipeToRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.fetchCryptoMarket(viewModel.currentCurrency.value.orEmpty(), isRefresh = true)
+            viewModel.fetchCryptoMarket(viewModel.currentCurrencyLiveData.value.orEmpty(), isRefresh = true)
         }
     }
 
@@ -136,7 +120,7 @@ class CryptoListFragment : Fragment() {
 
     private fun showCryptoList(data: List<CryptoModel>) {
         showLoading(false)
-        adapter.setListData(data, viewModel.currentCurrency.value?.let {
+        adapter.setListData(data, viewModel.currentCurrencyLiveData.value?.let {
             if (it == "usd") "$" else "₽"
         } ?: "$")
     }
@@ -158,7 +142,7 @@ class CryptoListFragment : Fragment() {
         binding.marketErrorLayout.visibility = View.VISIBLE
         binding.btnMarketRetry.setOnClickListener {
             Log.e("crypto", "List trying")
-            viewModel.currentCurrency.value?.let { viewModel.fetchCryptoMarket(it) }
+            viewModel.currentCurrencyLiveData.value?.let { viewModel.fetchCryptoMarket(it) }
         }
     }
 

@@ -65,23 +65,7 @@
                 android:layout_gravity="start|center_horizontal"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="13dp"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipUsd"
-                    style="@style/CustomChipStyle"
-                    android:text="@string/usd"
-                    android:textColor="@color/brightOrange"
-                    app:chipBackgroundColor="@color/lightBeige" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipRub"
-                    style="@style/CustomChipStyle"
-                    android:text="@string/rub"
-                    android:textColor="@color/blackTransparent87"
-                    app:chipBackgroundColor="@color/blackTransparent12" />
-
-            </com.google.android.material.chip.ChipGroup>
+                app:singleSelection="true" />
 
         </LinearLayout>
 

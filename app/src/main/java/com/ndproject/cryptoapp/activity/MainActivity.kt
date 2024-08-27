@@ -2,6 +2,7 @@ package com.ndproject.cryptoapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -12,12 +13,10 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.chip.Chip
 import com.ndproject.cryptoapp.R
 import com.ndproject.cryptoapp.databinding.ActivityMainBinding
-import com.ndproject.cryptoapp.fragment.CryptoListFragment
-import com.ndproject.cryptoapp.fragment.OnCurrencyChangedListener
 import com.ndproject.cryptoapp.viewmodel.CryptoViewModel
 import com.ndproject.cryptoapp.viewmodel.CryptoViewModelFactory
 
-class MainActivity : AppCompatActivity(), OnCurrencyChangedListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModelFactory: CryptoViewModelFactory
@@ -40,7 +39,9 @@ class MainActivity : AppCompatActivity(), OnCurrencyChangedListener {
         setupToolbar()
 
         // Обработка изменения валюты
-        updateCurrencyChips()
+        viewModel.availableCurrenciesLiveData.observe(this) { currencyList ->
+            setupCurrencyChips(currencyList)
+        }
     }
 
     fun showLoading(isLoading: Boolean) {
@@ -56,30 +57,54 @@ class MainActivity : AppCompatActivity(), OnCurrencyChangedListener {
         viewModel = ViewModelProvider(this, viewModelFactory).get(CryptoViewModel::class.java)
     }
 
-    private fun updateCurrencyChips() {
-        if (viewModel.currentCurrency.value == "usd") {
-            updateChipState(binding.chipUsd, binding.chipRub)
-        } else {
-            updateChipState(binding.chipRub, binding.chipUsd)
+    private fun setupCurrencyChips(currencies: List<String>) {
+        binding.chipGroup.removeAllViews() // Очистите все существующие чипсы перед добавлением новых
+
+        val inflater = LayoutInflater.from(this@MainActivity)
+        var selectedChip: Chip? = null
+
+        currencies.forEach { currency ->
+            // кастомный макет для чипса
+            val chip = inflater.inflate(R.layout.custom_chip, binding.chipGroup, false) as Chip
+            chip.text = currency
+            chip.isCheckable = true
+            chip.isCheckedIconVisible = false
+
+            // Установка стиля для чипсов по умолчанию
+            if(currency == viewModel.currentCurrencyLiveData.value){
+                selectedChip = chip
+            }
+
+            // Обработка клика по чипсу
+            chip.setOnClickListener {
+                viewModel.changeCurrency(currency)
+                // обновление состояния чипса
+                updateChipState(chip)
+            }
+
+            binding.chipGroup.addView(chip)
+        }
+        // установить первое состояние для чипсов
+        selectedChip?.let { updateChipState(it) }
+    }
+
+
+
+    private fun updateChipState(selectedChip: Chip) {
+        for (i in 0 until binding.chipGroup.childCount) {
+            val chip = binding.chipGroup.getChildAt(i) as Chip
+            if (chip == selectedChip) {
+                chip.setTextColor(ContextCompat.getColor(this, R.color.brightOrange))
+                chip.chipBackgroundColor = ContextCompat.getColorStateList(this, R.color.lightBeige)
+            } else {
+                chip.setTextColor(ContextCompat.getColor(this, R.color.blackTransparent87))
+                chip.chipBackgroundColor = ContextCompat.getColorStateList(this, R.color.grey)
+            }
         }
     }
 
     // Настройка чипсов для выбора валюты
     private fun setupToolbar() {
-        binding.chipUsd.setOnClickListener {
-            viewModel.changeCurrency("usd")
-            updateChipState(
-                activeChip = binding.chipUsd,
-                inactiveChip = binding.chipRub
-            )
-        }
-        binding.chipRub.setOnClickListener {
-            viewModel.changeCurrency("rub")
-            updateChipState(
-                activeChip = binding.chipRub,
-                inactiveChip = binding.chipUsd
-            )
-        }
 
         // Настройка NavController для обработки смены тулбара
         navController.addOnDestinationChangedListener { _, destination, arguments ->
@@ -104,21 +129,6 @@ class MainActivity : AppCompatActivity(), OnCurrencyChangedListener {
         // Обработка нажатия кнопки назад
         binding.ivBackButton.setOnClickListener {
             navController.navigateUp()
-        }
-    }
-
-    private fun updateChipState(activeChip: Chip, inactiveChip: Chip) {
-        activeChip.setTextColor(ContextCompat.getColor(this, R.color.brightOrange))
-        activeChip.chipBackgroundColor = ContextCompat.getColorStateList(this, R.color.lightBeige)
-
-        inactiveChip.setTextColor(ContextCompat.getColor(this, R.color.blackTransparent87))
-        inactiveChip.chipBackgroundColor = ContextCompat.getColorStateList(this, R.color.grey)
-    }
-
-    override fun onCurrencyChanged(currency: String) {
-        val fragment = supportFragmentManager.findFragmentById(R.id.navHostFragment)?.childFragmentManager?.fragments?.find { it is CryptoListFragment }
-        if (fragment is CryptoListFragment) {
-            fragment.viewModel.fetchCryptoMarket(currency)
         }
     }
 }
